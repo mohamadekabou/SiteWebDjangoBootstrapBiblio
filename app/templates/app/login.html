@@ -1,0 +1,41 @@
+{% extends 'app/base.html'%}
+{% load static %}
+{% block title %}Enregistrement client {% endblock title %}
+
+{% block main-content %}
+<section class="vh-100">
+    <div class="container-fluid h-custom">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+          <form action="" method="post" novalidate class="shadow p-5">
+                    {% csrf_token %}
+                    {% for fm in form %}
+                        {{fm.label_tag}} {{fm}} <small class="text-danger" >{{fm.errors|striptags}} </small>
+                        <br>
+                    {% endfor %}
+                    <small> <a href="{% url 'password_reset' %}" style="text-decoration: none;color: #ff7200";>Mot de passe oublié ? </a></small>
+                    <br><br>
+                    <input  style="background-color: #ff7200"; type="submit" value="Connexion" class="btn btn-primary" style="padding-left: 2.5rem; padding-right: 2.5rem; background-color: #3E2093; border: none;"> <br>
+
+                     <div class="text-center text-lg-start mt-4 pt-2">
+                    <p class="small fw-bold mt-2 pt-1 mb-0">Nouvel utilisateur ? <a href="{% url 'customerregistration' %}" style="text-decoration: none; color: #ff7200;">Créer un compte</a></p>
+                    </div>
+                    {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                            <p class="alert alert-danger my-3"> {{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+
+  
+          </form>
+        </div>
+        <div class="col-md-9 col-lg-6 col-xl-5">
+          <img src="{% static 'app/images/login.gif' %}"  class="img-fluid" alt="Sample image">
+        </div>
+      </div>
+    </div>
+{% endblock main-content %}
+
+
+
+

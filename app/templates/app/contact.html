@@ -1,0 +1,44 @@
+{% extends 'app/base.html'%}
+{% load static %}
+{% block title %}Contact {% endblock title %}
+
+{% block main-content %}
+<div class="container1">
+  <div class="content">
+    <div class="left-side">
+      <div class="address details">
+        <i class="fas fa-map-marker-alt" style="color: #ff7200 ;"></i>
+        <div class="topic">Address</div>
+        <div class="text-one">b p 11201, Avenue Zitoune, Meknes</div>
+      </div>
+      <div class="phone details">
+        <i class="fas fa-phone-alt" style="color: #ff7200 ;"></i>
+        <div class="topic">Phone</div>
+        <div class="text-two">0689956184</div>
+      </div>
+      <div class="email details">
+        <i class="fas fa-envelope" style="color: #ff7200 ;"></i>
+        <div class="topic">Email</div>
+        <div class="text-one">an.mansour@edu.umi.ac.ma</div>
+      </div>
+    </div>
+    <div class="right-side">
+      <div class="topic-text" style="color: #ff7200 ;">Envoie-nous un message</div>
+      <p>Pour toute demande, remplissez le formulaire ci-dessous.</p>
+    <form method="post" >
+      
+        {% csrf_token %}
+          {% for fm in form %}
+            <div class="input-box">
+              {{fm.label_tag}} {{fm}} 
+            </div>
+            <br>
+          {% endfor %}
+      <div class="button">
+        <input type="submit" value="Send Now" style="color: #ff7200 ;">
+      </div>
+    </form>
+  </div>
+  </div>
+</div>
+{% endblock main-content %}

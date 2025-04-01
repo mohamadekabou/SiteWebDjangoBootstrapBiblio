@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'app/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <!-- Fontawesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+   
+
+    <title>e-Book | {% block title %}{% endblock title %}</title>
+</head>
+
+<body style="display: flex; flex-direction: column; min-height: 112vh   ">
+    <!-- Navigation-->
+
+   <nav class="navbar navbar-expand-lg navbar-light " style="background: linear-gradient(to left,#080710,   #133074) ;">
+    <div class="container-fluid ">
+        <a href="/"><img style="height: 60px;" src='{% static "app/images/logo2.png" %}'/></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 ">
+                 
+                <li class="nav-item"><a class="nav-link active text-white" aria-current="page" href="/">Accueil</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">catégorie</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'category' 'AD' %}">art</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'LP' %}">santé</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'GM' %}">informatique</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'TP' %}">economie</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'TV' %}">entreprise</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'TB' %}">enfants</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'SH' %}">Science</a></li>
+                    </ul>
+                </li>
+                
+                <li class="nav-item"><a class="nav-link text-white" href="{% url 'contact' %}">Contactez-nous</a></li>
+      
+            </ul>
+
+           <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" role="search" action="/search">
+            <div class="input-group">
+                <input class="form-control" type="search" placeholder="Search for..." aria-label="Search for..." name="search" />
+                <button class="btn btn-primary" id="btnNavbarSearch" type="submit" style="background-color: #ff7200 ;"><i class="fas fa-search"></i></button>
+            </div>
+           </form>
+           
+           
+        </div> &nbsp
+        {% if request.user.is_authenticated %}
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown mx-2">
+            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i>&nbsp {{request.user.username}}</a>
+            
+            <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                <li ><a class="dropdown-item" href="{% url 'passwordchange' %}"><i class="fa-solid fa-lock"></i> Changer mot de passe</a></li>
+                <li ><a class="dropdown-item" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i> Se déconnecter</a></li>
+            </ul>
+            </li>
+            <li class="nav-item mx-2">
+                <a href="{% url 'showcart' %}" class="nav-link text-white"><span  class="badge bg-danger">{% if totalitem > 0 %} {{totalitem}} {% endif %}</span>&nbsp<i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp Ajouter au panier</i></a>
+            </li>
+            <li class="nav-item mx-2">
+                <a  href="{% url 'showwishlist' %}" class="nav-link text-white"><span class="badge bg-danger">{% if wishitem > 0 %} {{wishitem}} {% endif %}</span> <i class="fa fa-heart"></i></a>
+            </li>
+        </ul>
+        {% else %}
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item mx-2" >
+                <a href="{% url 'login'%}"  class="nav-link text-white">Connexion</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'category' 'AD' %}">art</a></li>
+                    <li><a class="dropdown-item" href="{% url 'category' 'LP' %}">santé</a></li>
+                </ul>
+            </li>
+            <li class="nav-item mx-2">
+                <a href="{% url 'customerregistration'%}" class="nav-link text-white">S'inscrire</a>
+            </li>
+        </ul>
+        {% endif%}
+           
+    </div>
+</nav>
+<!-- end navbar-->
+
+
+
+{% block banner-slider %}{% endblock banner-slider %}
+
+<div style="flex: 1">
+{% block main-content %}{% endblock main-content %}
+</div>
+
+
+
+<!-- Footer -->
+<footer style="background-color: #1D2026 ;">
+    <div class="py-4" >
+        <div class="container text-center">
+          <p class="text-muted mb-0 py-2">© Copyright : 2025 || Developed by : KABOURI Mohamed</p>
+        </div>
+      </div>
+</footer>
+<!-- End Footer -->
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js"
+integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i"
+crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="{% static 'app/js/myscript.js' %}"></script>
+
+    
+</body>
+
+</html>

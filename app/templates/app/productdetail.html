@@ -1,0 +1,39 @@
+{% extends 'app/base.html'%}
+{% load static %}
+{% block title %}Category {% endblock title %}
+
+{% block main-content %}
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{{product.product_image.url}}" alt="..." /></div>
+            <div class="col-md-6">
+                <h1 class="display-5 fw-bolder" style="color: #ff7200";>{{product.title}}</h1>
+                <div class="fs-5 mb-5">
+                    <span class="text-decoration-line-through">{{product.selling_price}} MAD  </span>&nbsp &nbsp
+                    <span>{{product.discounted_price}} MAD</span>
+                </div>
+                <h3 class="lead">{{product.caractéristiques}}</h3>
+                <p class="lead">{{product.description}}</p>
+                <div class="d-flex">
+                    {% if product.quantity_stock <= 0 %}
+                        <h4 style="color: red";>indisponible pour le mement</h4>
+                    {% else %}   
+                        <form action="/add-to-cart" class="d-inline">
+                            <input type="hidden" name="prod_id" value="{{product.id}}">
+                            <button class="btn btn-outline-dark flex-shrink-0 fw-bold" type="submit">Ajouter au panier</button>
+                        </form>
+                    {% endif %}
+                    &nbsp &nbsp &nbsp
+                    
+                    {% if wishlist %}
+                    <a  pid={{product.id}} class="minus-wishlist btn btn-danger shadow px-5 py-2 ms-4" ><i class="fas fa-heart fa-lg"></i></a>
+                    {% else %}
+                    <a  pid={{product.id}} class="plus-wishlist btn btn-success shadow px-5 py-2 ms-4"><i class="fas fa-heart fa-lg"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main-content %}

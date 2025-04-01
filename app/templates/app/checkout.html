@@ -1,0 +1,60 @@
+{% extends 'app/base.html'%}
+{% load static %}
+{% block title %}Buy now {% endblock title %}
+
+{% block main-content %}
+<div class="container">
+    {% if messages %}
+        {% for msg in messages %}
+            <div class="alert alert-danger" role="alert">
+                {{msg}}
+            </div>
+        {% endfor %}
+    {% endif %}  
+    <div class="row mt-5">
+        <div class="col-sm-6">
+            <h4 style="color: #ff7200";>Récapitulatif de la commande</h4>
+            <hr>
+            {% for item in cart_items %} 
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <h5>Livre  : {{item.product.title}}</h5>
+                        <h5>id  : {{item.product.id}}</h5>
+                        {% if item.product.quantity_stock > 1 %}
+                        <p class="fw-bold"> nombre jours : {{item.quantity}}</p>
+                        {% else %} 
+                           <h5 style="color: red";>consultation sur place </h5>   
+                        {% endif %}
+                        <p class="fw-bold">Price : {{item.product.discounted_price}} MAD </p>
+                    </div>
+                </div>
+            {% endfor %} 
+            <p class="fw-bold"style="color: #ff7200"; >Coût total + 40 MAD de caution = {{totalamount}}</p>
+            <small>Termes et conditions </small>
+        </div>
+        <div class="col-sm-4 offset-sm-1">
+            <h4 style="color: #ff7200";>Voici votre numéro des livre  : </h4>
+            <hr>
+            <form method="post" id="myform">
+                {% csrf_token %} 
+                
+                <div class="form-check mb-3">
+                    
+                    {% for item in cart_items %} 
+                                    <h5>id  : {{item.product.id}}</h5>
+                    {% endfor %} 
+                    <hr>
+                    <h5 style="color: #ff7200";>Venez le récupérer !!!</h5>
+                    <hr>
+
+                    <label class="form-label" for="totamount">Montant total : </label>
+                    <input class="form-control" type="number" name="totamount" style="color: #ff7200"; value={{totalamount}} readonly>
+                </div>
+                <!--<div class="text-end">
+                    <button  type="submit" class="btn btn-warning mt-3 px-5 fw-bold" style="background-color: #ff7200";>Continuer</button>
+                </div> -->
+            </form>
+        </div>
+    </div>      
+</div>
+{% endblock main-content %}
