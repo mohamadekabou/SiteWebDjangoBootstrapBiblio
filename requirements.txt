@@ -1,0 +1,34 @@
+D:\projetSiteWebBeblio> dir
+
+
+    Répertoire : D:\projetSiteWebBeblio
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+da----        24/02/2025     16:35                .idea
+da----        24/02/2025     16:35                ec
+da----        24/02/2025     16:36                env
+
+D:\projetSiteWebBeblio> cd .\ec\
+PS D:\projetSiteWebBeblio\ec> dir
+
+
+    Répertoire : D:\projetSiteWebBeblio\ec
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+da----        24/02/2025     16:35                app
+da----        24/02/2025     16:35                ec
+da----        24/02/2025     16:35                media
+
+ D:\projetSiteWebBeblio\ec> python .\manage.py runserver
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+fevrier 24, 2025 - 17:00:22
+Django version 4.2.11, using settings 'ec.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
