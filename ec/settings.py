@@ -122,9 +122,11 @@ USE_TZ = True
 import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'app/static')]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # <-- Important
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR/'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_REDIRECT_URL = '/profile/'
 
 # Default primary key field type
