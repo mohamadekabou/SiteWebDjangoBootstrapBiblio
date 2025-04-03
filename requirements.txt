@@ -1,4 +1,4 @@
 Django==4.2.11
 gunicorn==21.2.0
-whitenoise==6.6.0  # <-- Ajoutez cette ligne cruciale
+whitenoise==6.9.0 # <-- Ajoutez cette ligne cruciale
 pillow==10.3.0     # Pour le traitement d'images
